@@ -1,0 +1,122 @@
+package wright_problem1;
+
+import java.security.SecureRandom;
+import java.util.Scanner;
+
+public class CAI3 {
+	private int [] check;
+	
+	public CAI3(int [] c) {
+		check = c;
+	}
+
+	// contains program logic
+	
+	public void quiz() {
+		for(int i = 0; i < 10; i++) {
+		
+		//creates instance of random class
+		SecureRandom rand = new SecureRandom();
+				
+		//generates 2 random integers from 0 to 9
+		int rand1 = rand.nextInt(10);
+		int rand2 = rand.nextInt(10);
+		
+		//call askQuestion
+		askQuestion(rand1,rand2);
+		
+		//read response
+		int sAnswer = readResponse();
+		
+		//check if answer is correct then calls matching display class
+		this.check[i] = isAnswerCorrect(rand1, rand2, sAnswer);
+		
+		}
+	}
+	
+	//displays question to the screen
+	
+	private void askQuestion(int x, int y) {
+		System.out.println("How much is " + x + " times " + y + "?");	
+	}
+	
+	//reads students answer
+	
+	private int readResponse() {
+		//take and store user input
+		Scanner in = new Scanner(System.in);
+		int answer = in.nextInt();
+		
+		//return student's answer
+		return answer;
+		
+	}
+	
+	//calls matching display function based on correct/incorrect input
+	
+	private int isAnswerCorrect(int x, int y, int a) {
+		
+		//checks if student answer is actual answer
+		if((x * y) == a) {
+			displayCorrectResponse();
+			return 1;
+		}
+		else {
+			displayIncorrectResponse();
+			return 0;
+		}
+	}
+	
+	
+	//random answer selection for correct answers
+	
+	private String randomCorrectAnswers() {
+		String[] correct = new String [4];
+		correct[0] = "Very good!";
+		correct[1] = "Excellent!";
+		correct[2] = "Nice work!";
+		correct[3] = "Keep up the good work!";
+		SecureRandom rand = new SecureRandom();
+		int rand1 = rand.nextInt(4);
+		return correct[rand1];
+	}
+	
+	//random answer selection for incorrect answers
+	
+	private String randomIncorrectAnswers() {
+		String[] incorrect = new String [4];
+		incorrect[0] = "No. Please try again.";
+		incorrect[1] = "Wrong. Try once more.";
+		incorrect[2] = "Don't give up!";
+		incorrect[3] = "No. Keep trying.";
+		SecureRandom rand = new SecureRandom();
+		int rand1 = rand.nextInt(4);
+		return incorrect[rand1];
+	} 
+	
+	//prints when answer is  correct
+	
+	private void displayCorrectResponse() {
+		String rand = randomCorrectAnswers();
+		System.out.println(rand);
+		}
+		
+	//prints when answer is incorrect
+		
+	private void displayIncorrectResponse() {
+		String rand = randomIncorrectAnswers();
+		System.out.println(rand);
+		}
+	private void displayCompletionMethod() {
+		System.out.println("");
+	}
+	
+	//runs quiz function
+	
+	public static void main(String [] args) {
+		CAI3 quiz3 = new CAI3();
+		quiz3.quiz();
+		
+				
+	}
+}

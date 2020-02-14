@@ -1,0 +1,14 @@
+package wright_problem2;
+
+public class SavingsAccountTest {
+	public static void main(String [] args) {
+		SavingsAccount saver1 = new SavingsAccount(2000);
+		SavingsAccount saver2 = new SavingsAccount(3000);
+		SavingsAccount.modifyInterestRate(.04);
+		System.out.printf("\nWhen interest is 4%, saver 1's monthly balance is: %2f" + (saver1.calculateMonthlyInterest()));
+		System.out.println("When interest is 4%, saver 2's monthly balance is: " + (saver2.calculateMonthlyInterest()));
+		SavingsAccount.modifyInterestRate(.05);
+		System.out.println("When interest is 5%, saver 1's monthly balance is: " + (saver1.calculateMonthlyInterest()));
+		System.out.println("When interest is 5%, saver 2's monthly balance is: " + (saver2.calculateMonthlyInterest()));
+	}
+}

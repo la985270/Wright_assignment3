@@ -1,0 +1,173 @@
+package wright_problem1;
+
+import java.security.SecureRandom;
+import java.util.Scanner;
+
+public class CAI3 {
+	private int [] check = new int [10];
+	private double score;
+	// contains program logic
+	
+	public void quiz() {
+		
+		for(int i = 0; i < 10; i++) {
+		
+		//creates instance of random class
+		SecureRandom rand = new SecureRandom();
+				
+		//generates 2 random integers from 0 to 9
+		int rand1 = rand.nextInt(10);
+		int rand2 = rand.nextInt(10);
+		
+		//call askQuestion
+		askQuestion(rand1,rand2);
+		
+		//read response
+		int sAnswer = readResponse();
+		
+		//check if answer is correct then calls matching display class
+		check[i] = isAnswerCorrect(rand1, rand2, sAnswer);
+		}
+		calculateStudentScore();
+		displayCompletionMethod();
+	}
+	
+	//displays question to the screen
+	
+	private void askQuestion(int x, int y) {
+		System.out.println("How much is " + x + " times " + y + "?");	
+	}
+	
+	//reads students answer
+	
+	private int readResponse() {
+		//take and store user input
+		Scanner in = new Scanner(System.in);
+		int answer = in.nextInt();
+		
+		//return student's answer
+		return answer;
+		
+	}
+	
+	//calls matching display function based on correct/incorrect input
+	
+	private int isAnswerCorrect(int x, int y, int a) {
+		
+		//checks if student answer is actual answer
+		if((x * y) == a) {
+			displayCorrectResponse();
+			return 1;
+		}
+		else {
+			displayIncorrectResponse();
+			return 0;
+		}
+	}
+	
+
+	
+	//random answer selection for correct answers
+	
+	private String randomCorrectAnswers() {
+		String correct;
+		SecureRandom rand = new SecureRandom();
+		int rand1 = rand.nextInt(4);
+		switch(rand1) {
+		case 0 :
+		correct = "Very good!";
+		break;
+		case 1 :
+		correct = "Excellent!";
+		break;
+		case 2 :
+		correct = "Nice work!";
+		break;
+		case 3 :
+		correct = "Keep up the good work!";
+		break;
+		default :
+		correct = "Invalid";
+		}
+		return correct;
+	}
+	
+	//random answer selection for incorrect answers
+	
+	private String randomIncorrectAnswers() {
+		String incorrect;
+		SecureRandom rand = new SecureRandom();
+		int rand1 = rand.nextInt(4);
+		switch(rand1) {
+		case 0 :
+		incorrect = "No. Please try again.";
+		break;
+		case 1 :
+		incorrect = "Wrong. Try once more.";
+		break;
+		case 2:
+		incorrect = "Don't give up!";
+		break;
+		case 3:
+		incorrect = "No. Keep trying.";
+		break;
+		default :
+			incorrect = "Invalid";
+		}
+		return incorrect;
+	}  
+	
+	//prints when answer is  correct
+	
+	private void displayCorrectResponse() {
+		String rand = randomCorrectAnswers();
+		System.out.println(rand);
+		}
+		
+	//prints when answer is incorrect
+		
+	private void displayIncorrectResponse() {
+		String rand = randomIncorrectAnswers();
+		System.out.println(rand);
+		}
+	
+	//calculate students score
+	
+	private double calculateStudentScore() {
+		for(int i = 0; i < check.length - 1; i++) {
+			if(check[i] == 1) {
+				score += check[i];
+			}
+		}
+		score /= (double)10;
+		score *= 100;
+		return score;
+	}
+	private int isPassing() {
+		if(score >= 75) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	private void displayCompletionMethod() {
+		System.out.println("You scored a: " + score + "%");
+		if(isPassing() == 1) {
+		System.out.println("Congratulations, you are ready to go to the next level!");
+		}
+		else {
+		System.out.println("Please ask your teacher for extra help.");	
+		}
+	}
+	
+	//runs quiz function
+	
+	public static void main(String [] args) {
+		while(1) {
+		CAI3 quiz3 = new CAI3();
+		quiz3.quiz();
+		}
+				
+	}
+}
